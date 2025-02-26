@@ -16,8 +16,6 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-
-
   environment.systemPackages = map lib.lowPrio [
     pkgs.curl
     #add packages here
@@ -49,7 +47,7 @@
     path = [pkgs.coreutils]; # Ensures `rm` is available
     enable = true;
     serviceConfig = {
-     Type = "oneshot";
+      Type = "oneshot";
       User = "root";
       Group = "root";
     };
