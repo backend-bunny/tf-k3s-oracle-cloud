@@ -3,19 +3,14 @@ terraform {
   required_providers {
     oci = {
       source  = "oracle/oci"
-      version = ">= 3.70.0"
+      version = "~> 6.0"
       source  = "oracle/oci"
     }
     time = {
       source  = "hashicorp/time"
-      version = "0.12.1"
+      version = "~> 0.12"
     }
   }
-}
-
-provider "oci" {
-  private_key          = files(var.private_key_path)
-  private_key_password = var.private_key_password
 }
 
 module "network" {
