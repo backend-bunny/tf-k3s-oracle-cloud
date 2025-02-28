@@ -35,6 +35,7 @@ No requirements.
 | <a name="input_cidr_blocks"></a> [cidr\_blocks](#input\_cidr\_blocks) | CIDRs of the network, use index 0 for everything | `list(any)` | n/a | yes |
 | <a name="input_cluster_subnet_id"></a> [cluster\_subnet\_id](#input\_cluster\_subnet\_id) | Subnet for the bastion instance | `string` | n/a | yes |
 | <a name="input_compartment_id"></a> [compartment\_id](#input\_compartment\_id) | OCI Compartment ID | `string` | n/a | yes |
+| <a name="input_git_ref"></a> [git\_ref](#input\_git\_ref) | Git reference of this module | `string` | `"main"` | no |
 | <a name="input_lb_ip_address_details"></a> [lb\_ip\_address\_details](#input\_lb\_ip\_address\_details) | lb ip address details | `any` | n/a | yes |
 | <a name="input_nixos_infect_path"></a> [nixos\_infect\_path](#input\_nixos\_infect\_path) | Filepath to nixos-infext.nix | `string` | `"../nix/nixos-infect.nix"` | no |
 | <a name="input_permit_kube_api_nsg_id"></a> [permit\_kube\_api\_nsg\_id](#input\_permit\_kube\_api\_nsg\_id) | NSG to permit SSH | `string` | n/a | yes |

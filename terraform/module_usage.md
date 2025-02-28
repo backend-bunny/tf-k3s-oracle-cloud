@@ -28,6 +28,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_compartment_id"></a> [compartment\_id](#input\_compartment\_id) | OCI Compartment ID | `string` | n/a | yes |
 | <a name="input_fingerprint"></a> [fingerprint](#input\_fingerprint) | The fingerprint of the key to use for signing | `string` | n/a | yes |
+| <a name="input_git_ref"></a> [git\_ref](#input\_git\_ref) | Git reference of this module | `string` | `"main"` | no |
 | <a name="input_private_key_password"></a> [private\_key\_password](#input\_private\_key\_password) | Password for private key to use for signing | `string` | `null` | no |
 | <a name="input_private_key_path"></a> [private\_key\_path](#input\_private\_key\_path) | Private key to use for signing | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The region to connect to. | `string` | n/a | yes |
