@@ -43,6 +43,12 @@ variable "nixos_infect_path" {
   default     = "../nix/nixos-infect.nix"
 }
 
+variable "git_ref" {
+  description = "Git reference of this module"
+  type        = string
+  default     = "main"
+}
+
 locals {
   ampere_instance_config = {
     shape_id = "VM.Standard.A1.Flex"

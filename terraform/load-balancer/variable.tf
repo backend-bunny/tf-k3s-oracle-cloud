@@ -14,6 +14,6 @@ variable "cluster_subnet_id" {
 }
 
 variable "k3s_server_instances_0_1_priv_ips" {
-    description = "Private IPs for k3s servers"
-    type = list(string)
+  description = "Private IPs for k3s servers"
+  type        = list(string)
 }

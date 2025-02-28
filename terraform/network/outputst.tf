@@ -16,7 +16,7 @@ output "permit_ssh" {
 
 output "permit_kube_api" {
   description = "NSG to permit kubeapi"
-  value = oci_core_network_security_group.permit_kube_api
+  value       = oci_core_network_security_group.permit_kube_api
 }
 
 output "ad" {

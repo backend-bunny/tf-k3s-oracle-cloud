@@ -4,11 +4,11 @@ data "oci_identity_availability_domain" "ad_1" {
 }
 
 resource "random_string" "cluster_token" {
-  length           = 48
-  special          = false
-  numeric          = true
-  lower            = true
-  upper            = true
+  length  = 48
+  special = false
+  numeric = true
+  lower   = true
+  upper   = true
 }
 
 data "oci_core_images" "amd64_image" {

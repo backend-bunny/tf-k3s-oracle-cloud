@@ -47,3 +47,9 @@ variable "ssh_ingress_allowed_network" {
 locals {
   cidr_blocks = ["10.0.0.0/24"]
 }
+
+variable "git_ref" {
+  description = "Git reference of this module"
+  type        = string
+  default     = "main"
+}

@@ -198,7 +198,7 @@ resource "time_sleep" "wait_15_min" {
 module "system-build" {
   for_each  = { for idx, instance in oci_core_instance.server_0_1 : idx => instance }
   source    = "github.com/nix-community/nixos-anywhere//terraform/nix-build?ref=1.7.0"
-  attribute = ".#nixosConfigurations.k3s-cp-${tostring(each.key + 1)}.config.system.build.toplevel"
+  attribute = "github:backend-bunny/tf-k3s-oracle-cloud/${var.git_ref}}#nixosConfigurations.k3s-cp-${tostring(each.key + 1)}.config.system.build.toplevel"
   special_args = {
     terraform = {
       hostname                 = each.value.display_name
