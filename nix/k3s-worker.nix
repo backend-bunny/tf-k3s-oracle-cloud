@@ -1,14 +1,14 @@
 {
   lib,
   pkgs,
-#  terraform,
+  terraform,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
-#    ./common.nix
+    ./common.nix
   ];
-#  networking.hostName = terraform.hostname;
+  networking.hostName = terraform.hostname;
 
   environment.systemPackages = map lib.lowPrio [
     pkgs.busybox
