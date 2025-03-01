@@ -34,7 +34,6 @@ module "compute" {
   permit_kube_api_nsg_id = module.network.permit_kube_api.id
   ssh_authorized_keys    = var.ssh_authorized_keys
   lb_ip_address_details  = module.load_balancer.lb_ip_address_details
-  git_ref                = var.git_ref
 
   cidr_blocks = local.cidr_blocks
 }
