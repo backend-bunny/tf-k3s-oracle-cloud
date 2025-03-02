@@ -195,6 +195,11 @@ resource "time_sleep" "wait_15_min" {
   create_duration = "15m"
 }
 
+resource "local_file" "k3s_secrets_copy" {
+  source   = var.k3s_secrets_file_path
+  filename = "${path.module}/k3s_secrets.yaml"
+}
+
 module "system-build" {
   for_each  = { for idx, instance in oci_core_instance.server_0_1 : idx => instance }
   source    = "github.com/nix-community/nixos-anywhere//terraform/nix-build?ref=1.7.0"
@@ -203,19 +208,21 @@ module "system-build" {
     terraform = {
       hostname                 = each.value.display_name
       ssh_authorized_keys_json = jsonencode(var.ssh_authorized_keys),
-      cluster_token            = resource.random_string.cluster_token.result,
       lb_addr                  = var.lb_ip_address_details[0].ip_address
+      k3s_secrets_yaml         = resource.local_file.k3s_secrets_copy.content_base64
     }
   }
   depends_on = [time_sleep.wait_15_min]
 }
 
 module "deploy" {
-  for_each     = { for idx, instance in module.system-build : idx => instance }
-  source       = "github.com/nix-community/nixos-anywhere//terraform/nixos-rebuild?ref=1.7.0"
-  nixos_system = module.system-build[each.key].result.out
-  target_host  = oci_core_instance.server_0_1[each.key].public_ip
-  target_user  = "k3s"
+  for_each = { for idx, instance in module.system-build : idx => instance }
+  source   = "github.com/nix-community/nixos-anywhere//terraform/nixos-rebuild?ref=1.7.0"
+
+  ignore_systemd_errors = true
+  nixos_system          = module.system-build[each.key].result.out
+  target_host           = oci_core_instance.server_0_1[each.key].public_ip
+  target_user           = "k3s"
 
   depends_on = [time_sleep.wait_15_min]
 }

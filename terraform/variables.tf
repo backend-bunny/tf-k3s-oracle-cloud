@@ -44,6 +44,11 @@ variable "ssh_ingress_allowed_network" {
   type        = string
 }
 
+variable "secrets_file_path" {
+  description = "Filepath to sops encrypted file containg secrets for k3s nodes"
+  type        = string
+}
+
 locals {
   cidr_blocks = ["10.0.0.0/24"]
 }

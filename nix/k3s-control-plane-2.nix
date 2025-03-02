@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   terraform,
   ...
 }: {
@@ -32,7 +33,7 @@
   services.k3s = {
     enable = true;
     role = "agent";
-    token = terraform.cluster_token;
+    tokenFile = config.sops.secrets."k3s-token".path;
     serverAddr = "https://${terraform.lb_addr}:6443";
     #    clusterInit = true;
     gracefulNodeShutdown = {

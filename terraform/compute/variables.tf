@@ -43,6 +43,11 @@ variable "nixos_infect_path" {
   default     = "../nix/nixos-infect.nix"
 }
 
+variable "k3s_secrets_file_path" {
+  description = "Filepath to sops encrypted file containg secrets for k3s nodes"
+  type        = string
+}
+
 locals {
   ampere_instance_config = {
     shape_id = "VM.Standard.A1.Flex"

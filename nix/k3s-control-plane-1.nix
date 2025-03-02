@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   terraform,
   ...
 }: {
@@ -36,7 +37,7 @@
   services.k3s = {
     enable = true;
     role = "server";
-    token = terraform.cluster_token;
+    tokenFile = config.sops.secrets."k3s-token".path;
     clusterInit = true;
     extraFlags = ["--disable=servicelb,traefik,local-storage,metrics-server" "--cluster-cidr 10.24.0.0/16"];
     gracefulNodeShutdown = {
