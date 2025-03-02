@@ -6,8 +6,8 @@ No requirements.
 
 | Name | Version |
 |------|---------|
+| <a name="provider_local"></a> [local](#provider\_local) | n/a |
 | <a name="provider_oci"></a> [oci](#provider\_oci) | n/a |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 | <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Modules
@@ -21,8 +21,8 @@ No requirements.
 
 | Name | Type |
 |------|------|
+| [local_file.k3s_secrets_copy](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [oci_core_instance.server_0_1](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/core_instance) | resource |
-| [random_string.cluster_token](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 | [time_sleep.wait_15_min](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [oci_core_images.aarch64_image](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/core_images) | data source |
 | [oci_core_images.amd64_image](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/core_images) | data source |
@@ -35,7 +35,7 @@ No requirements.
 | <a name="input_cidr_blocks"></a> [cidr\_blocks](#input\_cidr\_blocks) | CIDRs of the network, use index 0 for everything | `list(any)` | n/a | yes |
 | <a name="input_cluster_subnet_id"></a> [cluster\_subnet\_id](#input\_cluster\_subnet\_id) | Subnet for the bastion instance | `string` | n/a | yes |
 | <a name="input_compartment_id"></a> [compartment\_id](#input\_compartment\_id) | OCI Compartment ID | `string` | n/a | yes |
-| <a name="input_git_ref"></a> [git\_ref](#input\_git\_ref) | Git reference of this module | `string` | `"main"` | no |
+| <a name="input_k3s_secrets_file_path"></a> [k3s\_secrets\_file\_path](#input\_k3s\_secrets\_file\_path) | Filepath to sops encrypted file containg secrets for k3s nodes | `string` | n/a | yes |
 | <a name="input_lb_ip_address_details"></a> [lb\_ip\_address\_details](#input\_lb\_ip\_address\_details) | lb ip address details | `any` | n/a | yes |
 | <a name="input_nixos_infect_path"></a> [nixos\_infect\_path](#input\_nixos\_infect\_path) | Filepath to nixos-infext.nix | `string` | `"../nix/nixos-infect.nix"` | no |
 | <a name="input_permit_kube_api_nsg_id"></a> [permit\_kube\_api\_nsg\_id](#input\_permit\_kube\_api\_nsg\_id) | NSG to permit SSH | `string` | n/a | yes |
