@@ -44,7 +44,7 @@ variable "ssh_ingress_allowed_network" {
   type        = string
 }
 
-variable "secrets_file_path" {
+variable "k3s_secrets_file_path" {
   description = "Filepath to sops encrypted file containg secrets for k3s nodes"
   type        = string
 }
