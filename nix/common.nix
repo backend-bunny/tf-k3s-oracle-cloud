@@ -4,7 +4,6 @@
   terraform,
   ...
 }: {
-
   zramSwap.enable = true;
 
   services.openssh = {
@@ -31,7 +30,7 @@
   sops = {
     defaultSopsFile = /etc/secrets.d/k3s-secrets.yaml;
     # This automatically uses the SSH host key as an age key
-    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     # Optional: specify a fallback key if needed
     # age.keyFile = "/var/lib/sops-nix/key.txt";
 
@@ -42,7 +41,7 @@
         owner = "root";
         group = "root";
         mode = "0400";
-        restartUnits = [ "k3s.service" ];
+        restartUnits = ["k3s.service"];
       };
       # Add other secrets as needed
     };
@@ -89,14 +88,11 @@
       };
       script = "[ -d /old-root ] && rm -rf /old-root || exit 0";
     };
-  systemd.services = {
-    # Your other services...
-
     decode-base64-secrets_yaml = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       description = "Decode Base64 encoded secrets.yaml and write to file";
-      path = [ pkgs.busybox pkgs.coreutils ]; # Ensures base64 and other tools are available
-      after = [ "network.target" ];
+      path = [pkgs.busybox pkgs.coreutils]; # Ensures base64 and other tools are available
+      after = ["network.target"];
       enable = true;
       serviceConfig = {
         ExecStart = pkgs.writeShellScript "decode-secrets" ''
