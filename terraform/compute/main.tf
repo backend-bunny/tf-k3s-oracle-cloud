@@ -209,7 +209,7 @@ module "system-build" {
       hostname                 = each.value.display_name
       ssh_authorized_keys_json = jsonencode(var.ssh_authorized_keys),
       lb_addr                  = var.lb_ip_address_details[0].ip_address
-      k3s_secrets_yaml         = resource.local_file.k3s_secrets_copy.content_base64
+      k3s_secrets_yaml         = resource.local_file.k3s_secrets_copy.source
     }
   }
   depends_on = [time_sleep.wait_15_min]

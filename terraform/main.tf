@@ -39,6 +39,9 @@ module "compute" {
   cidr_blocks = local.cidr_blocks
 }
 
+output "IPs" {
+  value = module.compute.instance_0_1_public_ips
+}
 module "load_balancer" {
   source = "./load-balancer"
   #depends_on = [ module.compute ]

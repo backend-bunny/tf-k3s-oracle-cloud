@@ -3,6 +3,9 @@ output "ad" {
 }
 
 output "instance_0_1_priv_ips" {
-  #value = oci_core_instance.server_0_1[*].private_ip
   value = [for instance in oci_core_instance.server_0_1 : instance.private_ip]
+}
+
+output "instance_0_1_public_ips" {
+  value = [for instance in oci_core_instance.server_0_1 : instance.public_ip]
 }
