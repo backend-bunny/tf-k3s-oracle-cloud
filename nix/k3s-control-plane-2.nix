@@ -35,6 +35,7 @@
     role = "agent";
     tokenFile = config.sops.secrets."k3s-token".path;
     serverAddr = "https://${terraform.lb_addr}:6443";
+    extraFlags = [ "--flannel-backend=none" ];
     #    clusterInit = true;
     gracefulNodeShutdown = {
       enable = true;

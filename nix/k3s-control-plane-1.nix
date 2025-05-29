@@ -39,7 +39,7 @@
     role = "server";
     tokenFile = config.sops.secrets."k3s-token".path;
     clusterInit = true;
-    extraFlags = ["--disable=servicelb,traefik,local-storage,metrics-server" "--cluster-cidr 10.24.0.0/16"];
+    extraFlags = ["--disable=servicelb,traefik,local-storage,metrics-server" "--disable-kube-proxy" "--flannel-backend=none" "--cluster-cidr=10.24.0.0/16"];
     gracefulNodeShutdown = {
       enable = true;
     };

@@ -1,12 +1,11 @@
 {
   lib,
   pkgs,
+  config,
   terraform,
   ...
 }: {
   zramSwap.enable = true;
-
-  services.tailscale.enable = true;
 
   services.openssh = {
     enable = true;
@@ -20,6 +19,12 @@
         type = "ed25519";
       }
     ];
+  };
+
+  services.tailscale = {
+    enable = true;
+    authKeyFile = config.sops.secrets."tailscale/${terraform.hostname}".path;
+    disableTaildrop = true;
   };
 
   sops = {
@@ -37,9 +42,12 @@
         mode = "0400";
         restartUnits = ["k3s.service"];
       };
-      # Add other secrets as needed
+      "tailscale/${terraform.hostname}" = {
+        restartUnits = ["tailscaled-autoconnect.service" "tailscaled.service"];
+      };
     };
   };
+
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -83,7 +91,32 @@
       };
       script = "[ -d /old-root ] && rm -rf /old-root || exit 0";
     };
+    stop_tailscale_first_boot = {
+       wantedBy = ["multi-user.target"];
+       description = "Manages tailscale systemd units based on secret availability";
+       enable = true;
+       serviceConfig = {
+         Type = "oneshot";
+         User = "root";
+         Group = "root";
+       };
+       script = ''
+         SECRET_PATH="${config.sops.secrets."tailscale/${terraform.hostname}".path}"
+
+         if [ -f "$SECRET_PATH" ]; then
+           echo "Tailscale secret found at $SECRET_PATH, starting tailscale services"
+           systemctl start tailscaled.service
+           systemctl start tailscaled-autoconnect.service
+         else
+           echo "Tailscale secret not found at $SECRET_PATH, stopping tailscale services"
+           systemctl stop tailscaled-autoconnect.service
+           systemctl stop tailscaled.service
+         fi
+       '';
+    };
   };
 
   system.stateVersion = "24.11";
 }
+
+

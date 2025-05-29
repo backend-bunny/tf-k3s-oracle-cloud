@@ -198,6 +198,13 @@ resource "time_sleep" "wait_15_min" {
 resource "local_file" "k3s_secrets_copy" {
   source   = var.k3s_secrets_file_path
   filename = "${path.module}/k3s_secrets.yaml"
+  lifecycle {
+    replace_triggered_by = [terraform_data.file_trigger]
+  }
+}
+
+resource "terraform_data" "file_trigger" {
+  input = filemd5(var.k3s_secrets_file_path)
 }
 
 module "system-build" {
@@ -212,7 +219,7 @@ module "system-build" {
       k3s_secrets_yaml         = resource.local_file.k3s_secrets_copy.source
     }
   }
-  depends_on = [time_sleep.wait_15_min]
+  depends_on = [time_sleep.wait_15_min, terraform_data.file_trigger]
 }
 
 module "deploy" {
@@ -224,5 +231,5 @@ module "deploy" {
   target_host           = oci_core_instance.server_0_1[each.key].public_ip
   target_user           = "k3s"
 
-  depends_on = [time_sleep.wait_15_min]
+  depends_on = [time_sleep.wait_15_min, module.system-build]
 }
